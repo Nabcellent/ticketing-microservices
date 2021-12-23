@@ -18,7 +18,8 @@ export default function ValidationMiddleware(schema: Joi.Schema): RequestHandler
 
             e.details.forEach((err: Joi.ValidationErrorItem) => errors.push(err.message))
 
-            res.status(400).send({errors})
+            next(e)
+            // res.status(400).send({errors})
         }
     }
 }
