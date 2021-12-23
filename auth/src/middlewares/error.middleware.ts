@@ -13,7 +13,6 @@ const errorHandler = (error: Error, req: Request, res: Response, next: NextFunct
         return res.status(error.statusCode).send({errors: error.serializeErrors()})
     }
 
-
     res.status(400).send({errors: [{message}]})
 }
 
