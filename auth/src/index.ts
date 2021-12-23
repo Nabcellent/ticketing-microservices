@@ -1,10 +1,11 @@
 import express, {Application, json, urlencoded} from 'express'
 import 'express-async-errors'
+import mongoose from 'mongoose'
 import {authRouter} from "./routes/auth";
 import errorHandler from "./middlewares/error.middleware";
 import {NotFoundError} from "./utils/exceptions/not-found.error";
 
-const app:Application = express()
+const app: Application = express()
 app.use(json())
 app.use(urlencoded({extended: false}))
 
@@ -16,4 +17,14 @@ app.all('*', async () => {
 
 app.use(errorHandler)
 
-app.listen(3000, () => console.log(`Auth: listening on port 3000!`))
+const start = async () => {
+    try {
+        await mongoose.connect('mongodb://auth-mongo-srv:27017/auth')
+    } catch (e) {
+        console.error(e)
+    }
+
+    app.listen(3000, () => console.log(`Auth: listening on port 3000!`))
+}
+
+start()

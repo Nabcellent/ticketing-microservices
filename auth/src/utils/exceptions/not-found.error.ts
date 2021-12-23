@@ -12,5 +12,4 @@ export class NotFoundError extends CustomError {
     serializeErrors(): { message: string; field?: string }[] {
         return [{message: 'Not found.'}];
     }
-
 }
