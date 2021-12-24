@@ -35,7 +35,7 @@ export async function signIn(req: Request, res: Response) {
 
     const passwordsMatch = await PasswordService.compare(existingUser.password, password)
 
-    if(!passwordsMatch) throw new BadRequestError('Invalid credentials!')
+    if (!passwordsMatch) throw new BadRequestError('Invalid credentials!')
 
     //  Generate JWT
     const userJwt = jwt.sign({
@@ -47,4 +47,16 @@ export async function signIn(req: Request, res: Response) {
     req.session = {jwt: userJwt}
 
     res.status(200).send(existingUser)
+}
+
+export const getCurrentUser = (req: Request, res: Response) => {
+    if (!req.session?.jwt) return res.send({currentUser: null})
+
+    try {
+        const payload = jwt.verify(req.session.jwt, process.env.JWT_KEY!)
+
+        res.send({currentUser: payload})
+    } catch (e) {
+        res.send({currentUser: null})
+    }
 }

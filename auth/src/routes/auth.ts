@@ -5,9 +5,7 @@ import {ValidateRequest} from "../middlewares/validate-request.middleware";
 
 const router = Router()
 
-router.get(`/users/current-user`, (req, res) => {
-    res.send('Hi there!')
-})
+router.get(`/users/current-user`, AuthController.getCurrentUser)
 
 router.post(`/users/sign-up`, [
     body('email')
