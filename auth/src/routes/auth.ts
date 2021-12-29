@@ -21,8 +21,6 @@ router.post(`/users/sign-in`, [
         .trim().notEmpty().withMessage('password is required.')
 ], ValidateRequest, AuthController.signIn)
 
-router.get(`/users/sign-out`, (req, res) => {
-    res.send('Hi there')
-})
+router.post(`/users/sign-out`, AuthController.signOut)
 
 export {router as authRouter}

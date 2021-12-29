@@ -60,3 +60,9 @@ export const getCurrentUser = (req: Request, res: Response) => {
         res.send({currentUser: null})
     }
 }
+
+export const signOut = (req:Request, res:Response) => {
+    req.session = null
+
+    res.send({})
+}
