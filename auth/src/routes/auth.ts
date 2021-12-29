@@ -2,10 +2,11 @@ import {Router} from 'express'
 import {body} from "express-validator";
 import * as AuthController from "../resources/auth/auth.controller";
 import {ValidateRequest} from "../middlewares/validate-request.middleware";
+import {currentUser} from "../middlewares/current-user.middleware";
 
 const router = Router()
 
-router.get(`/users/current-user`, AuthController.getCurrentUser)
+router.get(`/users/current-user`, currentUser, AuthController.getCurrentUser)
 
 router.post(`/users/sign-up`, [
     body('email')
