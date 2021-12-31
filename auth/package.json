@@ -5,7 +5,8 @@
   "license": "MIT",
   "scripts": {
     "start": "nodemon src/index.ts",
-    "dev": "ts-node-dev src/index.ts"
+    "dev": "ts-node-dev src/index.ts",
+    "test": "jest --watchAll --no-cache"
   },
   "dependencies": {
     "@types/cookie-session": "^2.0.44",
@@ -25,6 +26,12 @@
   },
   "devDependencies": {
     "@types/compression": "^1.7.2",
-    "joi": "^17.5.0"
+    "@types/jest": "^27.4.0",
+    "@types/supertest": "^2.0.11",
+    "jest": "^27.4.5",
+    "joi": "^17.5.0",
+    "mongodb-memory-server": "^8.1.0",
+    "supertest": "^6.1.6",
+    "ts-jest": "^27.1.2"
   }
 }
