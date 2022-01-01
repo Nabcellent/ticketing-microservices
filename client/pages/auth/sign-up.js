@@ -1,37 +1,26 @@
 import { useState } from "react";
-import axios from "axios";
+import { useRequest } from "../../hooks/use-request";
 
 export default () => {
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
-	const [errors, setErrors] = useState([])
+	const { sendRequest, errors } = useRequest({
+		url: '/api/users/sign-up',
+		method: 'post',
+		body: { email, password }
+	})
 
 	const onSubmit = async event => {
 		event.preventDefault()
 
-		try {
-			const response = await axios.post('/api/users/sign-up', { email, password })
-
-			console.log(response.data)
-		} catch(err) {
-			setErrors(err.response.data.errors)
-		}
+		sendRequest()
 	}
 
 	return (
 		<form action="#" onSubmit={ onSubmit }>
 			<h1>Sign Up</h1>
 
-			{
-				errors.length > 0 &&
-				<div className="alert alert-danger alert-dismissible fade show" role="alert">
-					<strong>Oops!</strong>
-					<ul className={ 'my-0' }>
-						{ errors.map(err => <li key={ err.message }>{ err.message }</li>) }
-					</ul>
-					<button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"/>
-				</div>
-			}
+			{ errors }
 
 			<div className="mb-3">
 				<input type="email" className={ 'form-control' } value={ email } autoFocus
