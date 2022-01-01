@@ -5,7 +5,7 @@ import { Component } from "react";
 const AppComponent = ({Component, pageProps, currentUser}) => {
 	return (
 		<div>
-			<h1>Header</h1>
+			<h1>Header {currentUser.email}</h1>
 			<Component {...pageProps}/>
 		</div>
 	)
@@ -20,7 +20,7 @@ AppComponent.getInitialProps = async({ Component, ctx }) => {
 		pageProps = await Component.getInitialProps(ctx)
 	}
 
-	return data
+	return { pageProps, ...data }
 }
 
 export default AppComponent
