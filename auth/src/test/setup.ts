@@ -1,6 +1,14 @@
 import {MongoMemoryServer} from "mongodb-memory-server";
 import mongoose from "mongoose";
 
+declare global {
+    namespace NodeJS {
+        interface Global {
+            signIn(): Promise<string[]>
+        }
+    }
+}
+
 let mongo: any;
 
 beforeAll(async () => {
@@ -25,3 +33,5 @@ afterAll(async () => {
     await mongo.stop()
     await mongoose.connection.close()
 })
+
+jest.setTimeout(30000)
