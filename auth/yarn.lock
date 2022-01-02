@@ -619,16 +619,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@nabztickets/common@npm:^1.0.11":
-  version: 1.0.11
-  resolution: "@nabztickets/common@npm:1.0.11"
+"@nabztickets/common@npm:^1.0.12":
+  version: 1.0.12
+  resolution: "@nabztickets/common@npm:1.0.12"
   dependencies:
     "@types/cookie-session": ^2.0.44
     "@types/express": ^4.17.13
     express: ^4.17.2
     express-validator: ^6.14.0
     jsonwebtoken: ^8.5.1
-  checksum: 7473a86c26a4b8b3aac31e7b23580585a4d60eba23d54b99b638e07e8efabef721b4c5eb23cd120c38a33ecfb46451627feb93ff7e8feb6cb3a614dcf1f252b7
+  checksum: 34781d31e6439134c93a3a86556f24cc3072291321fdbff0efd19a082c573dbdbe3baddbbb6cda289ede07d4493a2b740d2828c97d09d223a109ab1b2e1e0f52
   languageName: node
   linkType: hard
 
@@ -763,6 +763,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/cookiejar@npm:*":
+  version: 2.1.2
+  resolution: "@types/cookiejar@npm:2.1.2"
+  checksum: f6e1903454007f86edd6c3520cbb4d553e1d4e17eaf1f77f6f75e3270f48cc828d74397a113a36942f5fe52f9fa71067bcfa738f53ad468fcca0bc52cb1cbd28
+  languageName: node
+  linkType: hard
+
 "@types/express-serve-static-core@npm:^4.17.18":
   version: 4.17.27
   resolution: "@types/express-serve-static-core@npm:4.17.27"
@@ -817,6 +824,16 @@ __metadata:
   dependencies:
     "@types/istanbul-lib-report": "*"
   checksum: f1ad54bc68f37f60b30c7915886b92f86b847033e597f9b34f2415acdbe5ed742fa559a0a40050d74cdba3b6a63c342cac1f3a64dba5b68b66a6941f4abd7903
+  languageName: node
+  linkType: hard
+
+"@types/jest@npm:^27.4.0":
+  version: 27.4.0
+  resolution: "@types/jest@npm:27.4.0"
+  dependencies:
+    jest-diff: ^27.0.0
+    pretty-format: ^27.0.0
+  checksum: d2350267f954f9a2e4a15e5f02fbf19a77abfb9fd9e57a954de1fb0e9a0d3d5f8d3646ac7d9c42aeb4b4d828d2e70624ec149c85bb50a48634a54eed8429e1f8
   languageName: node
   linkType: hard
 
@@ -917,6 +934,25 @@ __metadata:
   version: 0.0.30
   resolution: "@types/strip-json-comments@npm:0.0.30"
   checksum: 829ddd389645073f347c5b1924a8c34b8813af29756576e511c46f40e218193cf93ccbade62661d47fc70f707e98f410331729b8c20edfcb2e807d51df1ad4b7
+  languageName: node
+  linkType: hard
+
+"@types/superagent@npm:*":
+  version: 4.1.14
+  resolution: "@types/superagent@npm:4.1.14"
+  dependencies:
+    "@types/cookiejar": "*"
+    "@types/node": "*"
+  checksum: 471839f14969a42041fab87a7658f16a3adb788b4b1ab4e74d0391e7185ee0c953ebe8ceee6d80c5afb38832e1b6928f864e0c8de1a0f6c9be9b637418860ab4
+  languageName: node
+  linkType: hard
+
+"@types/supertest@npm:^2.0.11":
+  version: 2.0.11
+  resolution: "@types/supertest@npm:2.0.11"
+  dependencies:
+    "@types/superagent": "*"
+  checksum: 291abc0d37abe833d517fcfd0c22d51e7d5ffea85ce990603a0d058afa7fe2465b1251d50642ddfd640f66d047029af512793215b612c39adbee72fae5b2ef4f
   languageName: node
   linkType: hard
 
@@ -1169,14 +1205,17 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "auth@workspace:."
   dependencies:
-    "@nabztickets/common": ^1.0.11
+    "@nabztickets/common": ^1.0.12
     "@types/cookie-session": ^2
     "@types/express": ^4
+    "@types/jest": ^27.4.0
     "@types/jsonwebtoken": ^8
     "@types/node": ^17.0.6
+    "@types/supertest": ^2.0.11
     cookie-session: ^2.0.0
     envalid: ^7.2.2
     express: ^4.17.2
+    express-async-errors: ^3.1.1
     express-validator: ^6.14.0
     jest: ^27.4.5
     jsonwebtoken: ^8.5.1
@@ -2246,6 +2285,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"express-async-errors@npm:^3.1.1":
+  version: 3.1.1
+  resolution: "express-async-errors@npm:3.1.1"
+  peerDependencies:
+    express: ^4.16.2
+  checksum: 3a2a6df8ea957185df401a239189d617715c38fba13fac8ced7750b25fa95b0ae656e5d1385d12d0e4dcd7997e90d070b218e86abcf8e68bb6048830b53ba668
+  languageName: node
+  linkType: hard
+
 "express-validator@npm:^6.14.0":
   version: 6.14.0
   resolution: "express-validator@npm:6.14.0"
@@ -3142,7 +3190,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest-diff@npm:^27.4.2":
+"jest-diff@npm:^27.0.0, jest-diff@npm:^27.4.2":
   version: 27.4.2
   resolution: "jest-diff@npm:27.4.2"
   dependencies:
@@ -4526,7 +4574,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pretty-format@npm:^27.4.2":
+"pretty-format@npm:^27.0.0, pretty-format@npm:^27.4.2":
   version: 27.4.2
   resolution: "pretty-format@npm:27.4.2"
   dependencies:

@@ -1,8 +1,7 @@
 import express, {Application, json, urlencoded} from 'express'
 import 'express-async-errors'
 import {authRouter} from "./routes/auth";
-import errorHandler from "@nabztickets/common";
-import {NotFoundError} from "@nabztickets/common";
+import {errorHandler, NotFoundError} from "@nabztickets/common";
 import cookieSession from "cookie-session";
 
 const app: Application = express()
