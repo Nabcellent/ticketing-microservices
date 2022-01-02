@@ -1,10 +1,20 @@
 {
   "name": "auth",
   "packageManager": "yarn@3.1.1",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
   "scripts": {
     "start": "nodemon src/index.ts",
     "dev": "ts-node-dev src/index.ts",
     "test": "jest --watchAll --no-cache"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node",
+    "setupFilesAfterEnv": [
+      "./src/test/setup.ts"
+    ]
   },
   "dependencies": {
     "@nabztickets/common": "^1.0.12",
