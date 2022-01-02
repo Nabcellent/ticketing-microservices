@@ -27,11 +27,37 @@ it('should return a status other than 401 if user is signed in', async function 
 });
 
 it('should return an error if an invalid title is provided', async function () {
+    await request(app)
+        .post('/api/tickets')
+        .set('Cookie', Help.signIn())
+        .send({
+            title: '',
+            price: 10
+        }).expect(400)
 
+    await request(app)
+        .post('/api/tickets')
+        .set('Cookie', Help.signIn())
+        .send({
+            price: 10
+        }).expect(400)
 });
 
 it('should return an error if an invalid price is provided', async function () {
+    await request(app)
+        .post('/api/tickets')
+        .set('Cookie', Help.signIn())
+        .send({
+            title: 'saadaw',
+            price: -10
+        }).expect(400)
 
+    await request(app)
+        .post('/api/tickets')
+        .set('Cookie', Help.signIn())
+        .send({
+            title: '',
+        }).expect(400)
 });
 
 it('should create a ticket with valid inputs', async function () {
