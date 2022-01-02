@@ -14,7 +14,8 @@ spec:
     spec:
       containers:
         - name: client
-          image: us.gcr.io/ticketing-dev-335910/client
+#          image: us.gcr.io/ticketing-dev-335910/client
+          image: nabcellent/client
 
 ---
 apiVersion: v1
