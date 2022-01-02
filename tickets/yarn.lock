@@ -619,16 +619,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@nabztickets/common@npm:^1.0.12":
-  version: 1.0.12
-  resolution: "@nabztickets/common@npm:1.0.12"
+"@nabztickets/common@npm:^1.0.13":
+  version: 1.0.13
+  resolution: "@nabztickets/common@npm:1.0.13"
   dependencies:
     "@types/cookie-session": ^2.0.44
     "@types/express": ^4.17.13
     express: ^4.17.2
     express-validator: ^6.14.0
     jsonwebtoken: ^8.5.1
-  checksum: 34781d31e6439134c93a3a86556f24cc3072291321fdbff0efd19a082c573dbdbe3baddbbb6cda289ede07d4493a2b740d2828c97d09d223a109ab1b2e1e0f52
+  checksum: 4fe9fd4d613e59ff957378bfe0f38cc08659dc4f5d77e5c0901bbfc9be2153dd86266fd74b0b4dfa6ecf1f68083b4968dd12d779ae490394d100e3ede57bb64e
   languageName: node
   linkType: hard
 
@@ -5309,7 +5309,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "tickets@workspace:."
   dependencies:
-    "@nabztickets/common": ^1.0.12
+    "@nabztickets/common": ^1.0.13
     "@types/cookie-session": ^2
     "@types/express": ^4
     "@types/jest": ^27.4.0

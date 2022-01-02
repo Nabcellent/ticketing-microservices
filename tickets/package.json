@@ -17,7 +17,7 @@
     ]
   },
   "dependencies": {
-    "@nabztickets/common": "^1.0.12",
+    "@nabztickets/common": "^1.0.13",
     "cookie-session": "^2.0.0",
     "envalid": "^7.2.2",
     "express": "^4.17.2",
