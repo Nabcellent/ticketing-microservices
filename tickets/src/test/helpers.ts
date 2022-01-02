@@ -4,8 +4,8 @@ export const Help = {
     signIn: () => {
         //  Build a JWT payload {id, email}
         const payload = {
+            id: 're.d',
             email: 'test@test.com',
-            password: 'password'
         }
 
         //  Create the JWT

@@ -18,7 +18,8 @@ interface TicketDoc extends mongoose.Document {
 
 const TicketSchema = new mongoose.Schema({
     user_id: {
-
+        type: String,
+        required: true
     },
     title: {
         type: String,
