@@ -1,5 +1,5 @@
 import {NextFunction, Request, Response} from "express";
-import {CustomError} from "../utils/exceptions/custom.error";
+import {CustomError} from "../exceptions/custom.error";
 
 const errorHandler = (error: Error, req: Request, res: Response, next: NextFunction) => {
     const message = error.message || 'Something went wrong';
