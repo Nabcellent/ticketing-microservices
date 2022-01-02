@@ -3,6 +3,12 @@ import {Ticket} from "../models/tickets";
 import {NotFoundError} from "@nabztickets/common";
 
 export const TicketController = {
+    index: async (req:Request, res:Response) => {
+        const tickets = await Ticket.find({})
+
+        res.send(tickets)
+    },
+
     store: async (req: Request, res: Response) => {
         const {title, price} = req.body
 
