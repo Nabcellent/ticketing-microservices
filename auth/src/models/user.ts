@@ -1,5 +1,4 @@
-import mongoose, {Model} from "mongoose";
-import {string} from "joi";
+import mongoose from "mongoose";
 import {PasswordService} from "../services/password.service";
 
 //  An interface describing the properties required to create a user.

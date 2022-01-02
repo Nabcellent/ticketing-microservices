@@ -1,6 +1,6 @@
 import {Request, Response} from "express";
 import {User} from "../../models/user";
-import {BadRequestError} from "../../utils/exceptions/bad-request.error";
+import {BadRequestError} from "@nabztickets/common";
 import jwt from 'jsonwebtoken'
 import {PasswordService} from "../../services/password.service";
 
