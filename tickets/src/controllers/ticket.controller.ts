@@ -1,9 +1,9 @@
 import {Request, Response} from "express";
 import {Ticket} from "../models/tickets";
-import {NotFoundError} from "@nabztickets/common";
+import {NotAuthorizedError, NotFoundError} from "@nabztickets/common";
 
 export const TicketController = {
-    index: async (req:Request, res:Response) => {
+    index: async (req: Request, res: Response) => {
         const tickets = await Ticket.find({})
 
         res.send(tickets)
@@ -18,18 +18,25 @@ export const TicketController = {
         res.status(201).send(ticket)
     },
 
-    show: async (req:Request, res:Response) => {
+    show: async (req: Request, res: Response) => {
         const ticket = await Ticket.findById(req.params.id)
 
-        if(!ticket) throw new NotFoundError()
+        if (!ticket) throw new NotFoundError()
 
         res.send(ticket)
     },
 
-    update: async (req:Request, res:Response) => {
+    update: async (req: Request, res: Response) => {
         const ticket = await Ticket.findById(req.params.id)
 
-        if(!ticket) throw new NotFoundError()
+        if (!ticket) throw new NotFoundError()
+        if (ticket.user_id !== req.currentUser!.id) throw new NotAuthorizedError()
+
+        ticket.set({
+            title: req.body.title,
+            price: req.body.price
+        })
+        await ticket.save()
 
         res.send(ticket)
     }
