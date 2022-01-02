@@ -1,7 +1,7 @@
 import {NextFunction, Request, Response} from "express";
 import {CustomError} from "../exceptions/custom.error";
 
-const errorHandler = (error: Error, req: Request, res: Response, next: NextFunction) => {
+export const errorHandler = (error: Error, req: Request, res: Response, next: NextFunction) => {
     const message = error.message || 'Something went wrong';
 
     if (error instanceof CustomError) {
@@ -10,5 +10,3 @@ const errorHandler = (error: Error, req: Request, res: Response, next: NextFunct
 
     res.status(400).send({errors: [{message}]})
 }
-
-export default errorHandler
