@@ -1,9 +1,9 @@
 import mongoose from "mongoose";
 
 interface TicketAttrs {
+    user_id: string
     title: string;
     price: number
-    user_id: string
 }
 
 interface TicketModel extends mongoose.Model<TicketDoc> {
@@ -11,18 +11,21 @@ interface TicketModel extends mongoose.Model<TicketDoc> {
 }
 
 interface TicketDoc extends mongoose.Document {
+    user_id: string
     title: string;
     price: number
-    user_id: string
 }
 
 const TicketSchema = new mongoose.Schema({
-    email: {
+    user_id: {
+
+    },
+    title: {
         type: String,
         required: true
     },
-    password: {
-        type: String,
+    price: {
+        type: Number,
         required: true
     }
 }, {
@@ -31,7 +34,6 @@ const TicketSchema = new mongoose.Schema({
             ret.id = ret._id
 
             delete ret._id
-            delete ret.password
             delete ret.__v
         }
     }
