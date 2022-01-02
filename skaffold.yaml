@@ -8,6 +8,15 @@ build:
 #  googleCloudBuild:
 #    projectId: ticketing-dev-335910
   artifacts:
+#    - image: us.gcr.io/ticketing-dev-335910/client
+    - image: nabcellent/client
+      context: client
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: '**/*.js'
+            dest: .
 #    - image: us.gcr.io/ticketing-dev-335910/auth
     - image: nabcellent/auth
       context: auth
@@ -17,14 +26,14 @@ build:
         manual:
           - src: 'src/**/*.ts'
             dest: .
-#    - image: us.gcr.io/ticketing-dev-335910/client
-    - image: nabcellent/client
-      context: client
+#    - image: us.gcr.io/ticketing-dev-335910/tickets
+    - image: nabcellent/tickets
+      context: tickets
       docker:
         dockerfile: Dockerfile
       sync:
         manual:
-          - src: '**/*.js'
+          - src: 'src/**/*.ts'
             dest: .
 deploy:
   kubectl:
