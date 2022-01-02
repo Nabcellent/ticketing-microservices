@@ -1,8 +1,9 @@
 import {Request, Response, Router} from "express";
+import {requireAuth} from "@nabztickets/common";
 
 const router = Router()
 
-router.post('/tickets', (req:Request, res:Response) => {
+router.post('/tickets', requireAuth, (req:Request, res:Response) => {
     res.sendStatus(200)
 })
 
