@@ -24,5 +24,13 @@ export const TicketController = {
         if(!ticket) throw new NotFoundError()
 
         res.send(ticket)
+    },
+
+    update: async (req:Request, res:Response) => {
+        const ticket = await Ticket.findById(req.params.id)
+
+        if(!ticket) throw new NotFoundError()
+
+        res.send(ticket)
     }
 }
