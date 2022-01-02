@@ -20,6 +20,7 @@ it('should return the ticket if it exists', async function () {
 
     response = await request(app)
         .get(`/api/tickets/${response.body.id}`)
+        .set('Cookie', Help.signIn())
         .expect(200)
 
     expect(response.body.title).toEqual(title)

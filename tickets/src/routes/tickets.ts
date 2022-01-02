@@ -10,4 +10,6 @@ router.post('/tickets', requireAuth, [
         body('price').isFloat({gt: 0}).withMessage('Price must be greater than 0')
     ], ValidateRequest, TicketController.store)
 
+router.get('/tickets/:id', TicketController.show)
+
 export {router as ticketRouter}

@@ -1,5 +1,6 @@
 import {Request, Response} from "express";
 import {Ticket} from "../models/tickets";
+import {NotFoundError} from "@nabztickets/common";
 
 export const TicketController = {
     store: async (req: Request, res: Response) => {
@@ -9,5 +10,13 @@ export const TicketController = {
         await ticket.save()
 
         res.status(201).send(ticket)
+    },
+
+    show: async (req:Request, res:Response) => {
+        const ticket = await Ticket.findById(req.params.id)
+
+        if(!ticket) throw new NotFoundError()
+
+        res.send(ticket)
     }
 }
