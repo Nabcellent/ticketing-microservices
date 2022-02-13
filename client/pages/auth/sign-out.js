@@ -1,6 +1,6 @@
-import { useRequest } from "../../hooks/use-request";
+import {useRequest} from "../../hooks/use-request";
 import Router from "next/router";
-import { useEffect } from "react";
+import {useEffect} from "react";
 
 export default () => {
 	const { sendRequest, errors } = useRequest({

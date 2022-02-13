@@ -1,7 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.css'
-import { buildClient } from "../api/build-client";
-import { Component } from "react";
-import { Header } from "../components/header";
+import {buildClient} from "../api/build-client";
+import {Component} from "react";
+import {Header} from "../components/header";
 
 const AppComponent = ({ Component, pageProps, currentUser }) => {
 	return (

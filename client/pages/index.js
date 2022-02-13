@@ -1,4 +1,4 @@
-import { buildClient } from "../api/build-client";
+import {buildClient} from "../api/build-client";
 
 const Home = ({ currentUser }) => {
 	return currentUser ? <h1>Signed In</h1> : <h2>Not signed In</h2>
