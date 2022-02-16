@@ -1,26 +1,27 @@
 import express, {Application, json, urlencoded} from 'express'
 import 'express-async-errors'
+import 'dotenv/config'
 import {authRouter} from "./routes/auth";
 import {errorHandler, NotFoundError} from "@nabztickets/common";
 import cookieSession from "cookie-session";
 
-const app: Application = express()
+const App: Application = express()
 
-app.set('trust proxy', true)
+App.set('trust proxy', true)
 
-app.use(json())
-app.use(urlencoded({extended: false}))
-app.use(cookieSession({
+App.use(json())
+App.use(urlencoded({extended: false}))
+App.use(cookieSession({
     signed: false,
     secure: process.env.NODE_ENV !== 'test'
 }))
 
-app.use('/api', authRouter)
+App.use('/api', authRouter)
 
-app.all('*', async () => {
+App.all('*', async () => {
     throw new NotFoundError();
 })
 
-app.use(errorHandler)
+App.use(errorHandler)
 
-export {app}
+export default App
