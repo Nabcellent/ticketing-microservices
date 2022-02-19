@@ -15,13 +15,18 @@ stan.on('connect', () => {
         process.exit()
     })
 
-    const options = stan.subscriptionOptions().setManualAckMode(true);
-    const subscription = stan.subscribe('ticket:created', 'listenerQueueGroup', options)
+    const options = stan.subscriptionOptions()
+        .setManualAckMode(true)
+        .setDeliverAllAvailable()
+        .setDurableName('some-service');
+    const subscription = stan.subscribe('ticket:created', 'listener-queue-group', options)
 
     subscription.on('message', (msg: Message) => {
         const data = msg.getData()
 
         if (typeof data === 'string') console.log(`Received event #${msg.getSequence()}, with data: ${data}`)
+
+        msg.ack();
     })
 })
 
