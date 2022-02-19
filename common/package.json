@@ -3,7 +3,7 @@
   "keywords": [],
   "author": "nabcellent",
   "license": "ISC",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "",
   "main": "./build/index.js",
   "types": "./build/index.d.ts",
