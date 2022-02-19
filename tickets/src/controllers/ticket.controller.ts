@@ -1,7 +1,6 @@
 import {Request, Response} from "express";
 import {Ticket} from "../models/tickets";
 import {NotAuthorizedError, NotFoundError} from "@nabz.tickets/common";
-import {TicketCreatedPublisher} from "../events/publishers/ticket-created.publisher";
 
 export const TicketController = {
     index: async (req: Request, res: Response) => {
@@ -15,12 +14,12 @@ export const TicketController = {
 
         const ticket = Ticket.build({title, price, user_id: req.currentUser!.id})
         await ticket.save()
-        await new TicketCreatedPublisher(client).publish({
-            id: ticket.id,
-            title: ticket.title,
-            price: ticket.price,
-            user_id: ticket.user_id
-        })
+        // await new TicketCreatedPublisher(client).publish({
+        //     id: ticket.id,
+        //     title: ticket.title,
+        //     price: ticket.price,
+        //     user_id: ticket.user_id
+        // })
 
         res.status(201).send(ticket)
     },
