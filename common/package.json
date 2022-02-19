@@ -14,7 +14,7 @@
   "scripts": {
     "clean": "del ./build/*",
     "build": "npm run clean && tsc",
-    "pub": "cd .. && git add . && git commit -m \"Update Common lib\" && cd common && npm version patch && npm run build && npm publish",
+    "pub": "cd .. && git add . && git commit -m \"Update Common lib\" && cd common && yarn version patch && yarn run build && yarn publish",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
