@@ -1,0 +1,9 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Test Tickets" type="js.build_tools.npm">
+    <package-json value="$PROJECT_DIR$/tickets/package.json" />
+    <command value="test" />
+    <node-interpreter value="project" />
+    <envs />
+    <method v="2" />
+  </configuration>
+</component>
