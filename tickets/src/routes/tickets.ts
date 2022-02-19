@@ -1,5 +1,5 @@
 import {Router} from "express";
-import {requireAuth, ValidateRequest} from "@nabztickets/common";
+import {requireAuth, ValidateRequest} from "@nabz.tickets/common";
 import {body} from "express-validator";
 import {TicketController} from '../controllers/ticket.controller'
 
