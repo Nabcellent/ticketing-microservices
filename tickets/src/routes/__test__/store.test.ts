@@ -1,10 +1,14 @@
-import request from "supertest";
 import {app} from "../../app";
 import {Help} from "../../test/helpers";
 import {Ticket} from "../../models/tickets";
+import supertest from 'supertest';
+
+const request = supertest(app);
+
+jest.mock('../../nats-wrapper')
 
 it('should have a route handler listening to /api/tickets for post requests', async function () {
-    const response = await request(app)
+    const response = await request
         .post('/api/tickets')
         .send({})
 
@@ -12,14 +16,14 @@ it('should have a route handler listening to /api/tickets for post requests', as
 });
 
 it('should only be accessed if a user is signed in', async function () {
-    await request(app)
+    await request
         .post('/api/tickets')
         .send({})
         .expect(401)
 });
 
 it('should return a status other than 401 if user is signed in', async function () {
-    const response = await request(app)
+    const response = await request
         .post('/api/tickets')
         .set('Cookie', Help.signIn())
         .send({})
@@ -28,7 +32,7 @@ it('should return a status other than 401 if user is signed in', async function 
 });
 
 it('should return an error if an invalid title is provided', async function () {
-    await request(app)
+    await request
         .post('/api/tickets')
         .set('Cookie', Help.signIn())
         .send({
@@ -36,7 +40,7 @@ it('should return an error if an invalid title is provided', async function () {
             price: 10
         }).expect(400)
 
-    await request(app)
+    await request
         .post('/api/tickets')
         .set('Cookie', Help.signIn())
         .send({
@@ -45,7 +49,7 @@ it('should return an error if an invalid title is provided', async function () {
 });
 
 it('should return an error if an invalid price is provided', async function () {
-    await request(app)
+    await request
         .post('/api/tickets')
         .set('Cookie', Help.signIn())
         .send({
@@ -53,7 +57,7 @@ it('should return an error if an invalid price is provided', async function () {
             price: -10
         }).expect(400)
 
-    await request(app)
+    await request
         .post('/api/tickets')
         .set('Cookie', Help.signIn())
         .send({
@@ -66,7 +70,7 @@ it('should create a ticket with valid inputs', async function () {
     let tickets = await Ticket.find({}),
         title = 'test-ticket'
 
-    await request(app)
+    await request
         .post('/api/tickets')
         .set('Cookie', Help.signIn())
         .send({

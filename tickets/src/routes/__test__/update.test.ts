@@ -1,12 +1,14 @@
-import request from "supertest";
 import {app} from "../../app";
 import mongoose from "mongoose";
 import {Help} from "../../test/helpers";
+import supertest from 'supertest';
+
+const request = supertest(app);
 
 it('should return a 404 if provided ticket does not exist', async function () {
     const id = new mongoose.Types.ObjectId().toHexString()
 
-    await request(app)
+    await request
         .put(`/api/tickets/${id}`)
         .set('Cookie', Help.signIn())
         .send({title: 'sadas', price: 20})
@@ -16,19 +18,19 @@ it('should return a 404 if provided ticket does not exist', async function () {
 it('should return a 401 if user is not authenticated', async function () {
     const id = new mongoose.Types.ObjectId().toHexString()
 
-    await request(app)
+    await request
         .put(`/api/tickets/${id}`)
         .send({title: 'sadas', price: 20})
         .expect(401)
 });
 
 it('should return a 401 if user does not own the ticket', async function () {
-    const response = await request(app)
+    const response = await request
         .post('/api/tickets')
         .set('Cookie', Help.signIn())
         .send({title: 'sadas', price: 20})
 
-    await request(app)
+    await request
         .put(`/api/tickets/${response.body.id}`)
         .set('Cookie', Help.signIn())
         .send({title: 'saApo;das', price: 10})
@@ -38,18 +40,18 @@ it('should return a 401 if user does not own the ticket', async function () {
 it('should return 400 if user provides invalid title or price', async function () {
     const cookie = Help.signIn()
 
-    const response = await request(app)
+    const response = await request
         .post('/api/tickets')
         .set('Cookie', cookie)
         .send({title: 'sadas', price: 20})
 
-    await request(app)
+    await request
         .put(`/api/tickets/${response.body.id}`)
         .set('Cookie', cookie)
         .send({title: '', price: 10})
         .expect(400)
 
-    await request(app)
+    await request
         .put(`/api/tickets/${response.body.id}`)
         .set('Cookie', cookie)
         .send({title: 'jamoka'})
@@ -59,18 +61,18 @@ it('should return 400 if user provides invalid title or price', async function (
 it('should update the ticket if provided with valid inputs', async function () {
     const cookie = Help.signIn()
 
-    let response = await request(app)
+    let response = await request
         .post('/api/tickets')
         .set('Cookie', cookie)
         .send({title: 'jamoka', price: 20})
 
-    await request(app)
+    await request
         .put(`/api/tickets/${response.body.id}`)
         .set('Cookie', cookie)
         .send({title: 'new title', price: 120})
         .expect(200)
 
-    response = await request(app)
+    response = await request
         .get(`/api/tickets/${response.body.id}`)
         .send({title: '', price: 10})
 

@@ -1,9 +1,11 @@
-import request from "supertest";
+import supertest from "supertest";
 import {app} from "../../app";
 import {Help} from "../../test/helpers";
 
+const request = supertest(app);
+
 const createTicket = () => {
-    return request(app)
+    return request
         .post('/api/tickets')
         .set('Cookie', Help.signIn())
         .send({
@@ -17,7 +19,7 @@ it('should fetch a list of tickets', async function () {
     await createTicket();
     await createTicket();
 
-    const response = await request(app)
+    const response = await request
         .get('/api/tickets')
         .send()
         .expect(200)
