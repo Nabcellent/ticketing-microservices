@@ -13,9 +13,6 @@ router.post('/orders', requireAuth, [
     body('price').isFloat({gt: 0}).withMessage('Price is required & must be greater than 0.')
 ], ValidateRequest, OrderController.store);
 
-router.put('/orders/:id', requireAuth, [
-    body('title').not().isEmpty().withMessage('Title is required.'),
-    body('price').isFloat({gt: 0}).withMessage('Price is required & must be greater than 0.')
-], ValidateRequest, OrderController.update);
+router.delete('/orders/:id', requireAuth, OrderController.delete);
 
-export {router as ticketRouter};
+export {router as orderRouter};

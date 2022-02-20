@@ -1,9 +1,8 @@
 import express, {Application, json, urlencoded} from 'express';
 import 'express-async-errors';
-import 'dotenv/config';
 import {currentUser, errorHandler, NotFoundError} from "@nabz.tickets/common";
 import cookieSession from "cookie-session";
-import {ticketRouter} from "./routes/orders";
+import {orderRouter} from "./routes/orders";
 
 const app: Application = express()
 
@@ -16,7 +15,7 @@ app.use(cookieSession({
     secure: process.env.NODE_ENV !== 'test'
 }))
 app.use(currentUser)
-app.use('/api', ticketRouter)
+app.use('/api', orderRouter)
 
 app.all('*', async () => {
     throw new NotFoundError()

@@ -26,18 +26,12 @@ export const OrderController = {
         res.send(ticket)
     },
 
-    update: async (req: Request, res: Response) => {
-        const ticket = await Order.findById(req.params.id)
+    delete: async (req: Request, res: Response) => {
+        const order = await Order.findById(req.params.id)
 
-        if (!ticket) throw new NotFoundError()
-        if (ticket.user_id !== req.currentUser!.id) throw new NotAuthorizedError()
+        if (!order) throw new NotFoundError()
+        if (order.user_id !== req.currentUser!.id) throw new NotAuthorizedError()
 
-        ticket.set({
-            title: req.body.title,
-            price: req.body.price
-        })
-        await ticket.save()
-
-        res.send(ticket)
+        res.send({})
     }
 }
