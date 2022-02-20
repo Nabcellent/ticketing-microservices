@@ -11,7 +11,8 @@ router.get('/orders/:id', OrderController.show);
 
 router.post('/orders', requireAuth, [
     body('ticket_id').not().isEmpty()
-        .custom((input: string) => mongoose.Types.ObjectId.isValid(input)).withMessage('Ticket Id is required.'),
+        .custom((input: string) => mongoose.Types.ObjectId.isValid(input))
+        .withMessage('Ticket Id is required.'),
 ], ValidateRequest, OrderController.store);
 
 router.delete('/orders/:id', requireAuth, OrderController.delete);
