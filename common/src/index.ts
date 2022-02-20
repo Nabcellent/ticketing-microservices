@@ -11,7 +11,9 @@ export * from './middlewares/error.middleware'
 export * from './middlewares/require-auth.middleware'
 export * from './middlewares/validate-request.middleware'
 
-export * from './events/core/subject'
+export * from './enums/status'
+export * from './enums/subject'
+
 export * from './events/core/base.listener'
 export * from './events/core/base.publisher'
 export * from './events/tickets/ticket-created.event'

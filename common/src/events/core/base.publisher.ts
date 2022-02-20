@@ -1,4 +1,4 @@
-import {Subject} from "./subject";
+import {Subject} from "../../enums/subject";
 import {Stan} from "node-nats-streaming";
 
 interface Event {

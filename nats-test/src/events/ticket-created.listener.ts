@@ -1,7 +1,7 @@
 import {Message} from "node-nats-streaming";
 import {Listener} from "../../../common/src/events/core/base.listener";
 import {TicketCreatedEvent} from "../../../common/src/events/tickets/ticket-created.event";
-import {Subject} from "../../../common/src/events/core/subject";
+import {Subject} from "../../../common/src/enums/subject";
 
 export class TicketCreatedListener extends Listener<TicketCreatedEvent> {
     queueGroupName: string = 'payments-service';
