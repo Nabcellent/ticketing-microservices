@@ -5,8 +5,6 @@ import supertest from 'supertest';
 
 const request = supertest(app);
 
-jest.mock('../../nats-wrapper')
-
 it('should have a route handler listening to /api/tickets for post requests', async function () {
     const response = await request
         .post('/api/tickets')
