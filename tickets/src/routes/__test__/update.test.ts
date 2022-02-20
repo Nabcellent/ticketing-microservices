@@ -2,6 +2,7 @@ import {app} from "../../app";
 import mongoose from "mongoose";
 import {Help} from "../../test/helpers";
 import supertest from 'supertest';
+import {natsWrapper} from '../../nats-wrapper';
 
 const request = supertest(app);
 
@@ -78,4 +79,21 @@ it('should update the ticket if provided with valid inputs', async function () {
 
     expect(response.body.title).toEqual('new title')
     expect(response.body.price).toEqual(120)
+});
+
+it('should publish an event', async function () {
+    const cookie = Help.signIn()
+
+    let response = await request
+        .post('/api/tickets')
+        .set('Cookie', cookie)
+        .send({title: 'jamoka', price: 20})
+
+    await request
+        .put(`/api/tickets/${response.body.id}`)
+        .set('Cookie', cookie)
+        .send({title: 'new title', price: 120})
+        .expect(200)
+
+    expect(natsWrapper.client.publish).toHaveBeenCalled()
 });
