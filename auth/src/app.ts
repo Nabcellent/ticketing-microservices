@@ -1,8 +1,8 @@
-import express, {Application, json, urlencoded} from 'express'
-import 'express-async-errors'
-import 'dotenv/config'
+import express, {Application, json, urlencoded} from 'express';
+import 'express-async-errors';
+import 'dotenv/config';
 import {authRouter} from "./routes/auth";
-import {errorHandler, NotFoundError} from "@nabztickets/common";
+import {errorHandler, NotFoundError} from "@nabz.tickets/common";
 import cookieSession from "cookie-session";
 
 const App: Application = express()

@@ -1,6 +1,9 @@
 import {Request, Response} from "express";
 import {Ticket} from "../models/tickets";
 import {NotAuthorizedError, NotFoundError} from "@nabz.tickets/common";
+import {TicketCreatedPublisher} from "../events/publishers/ticket-created.publisher";
+import {natsWrapper} from '../nats-wrapper';
+import {TicketUpdatedPublisher} from '../events/publishers/ticket-updated.publisher';
 
 export const TicketController = {
     index: async (req: Request, res: Response) => {
@@ -14,12 +17,12 @@ export const TicketController = {
 
         const ticket = Ticket.build({title, price, user_id: req.currentUser!.id})
         await ticket.save()
-        // await new TicketCreatedPublisher(client).publish({
-        //     id: ticket.id,
-        //     title: ticket.title,
-        //     price: ticket.price,
-        //     user_id: ticket.user_id
-        // })
+        await new TicketCreatedPublisher(natsWrapper.client).publish({
+            id: ticket.id,
+            title: ticket.title,
+            price: ticket.price,
+            user_id: ticket.user_id
+        })
 
         res.status(201).send(ticket)
     },
@@ -43,6 +46,13 @@ export const TicketController = {
             price: req.body.price
         })
         await ticket.save()
+
+        await new TicketUpdatedPublisher(natsWrapper.client).publish({
+            id: ticket.id,
+            title: ticket.title,
+            price: ticket.price,
+            user_id: ticket.user_id
+        })
 
         res.send(ticket)
     }

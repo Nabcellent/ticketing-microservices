@@ -1,11 +1,11 @@
 import request from "supertest";
-import {app} from "../../app";
+import App from "../../app";
 import {Help} from "../../test/helpers";
 
 it('should respond with details about current user',async function () {
     const cookie = await Help.signUp()
 
-    const response = await request(app)
+    const response = await request(App)
         .get('/api/users/current-user')
         .set('Cookie', cookie)
         .send().expect(200)
@@ -14,7 +14,7 @@ it('should respond with details about current user',async function () {
 });
 
 it('should respond with null if not authenticated', async function () {
-    const response = await request(app)
+    const response = await request(App)
         .get('/api/users/current-user')
         .send().expect(200)
 

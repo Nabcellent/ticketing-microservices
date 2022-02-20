@@ -1,7 +1,7 @@
 import {Request, Response} from "express";
 import {User} from "../../models/user";
-import {BadRequestError} from "@nabztickets/common";
-import jwt from 'jsonwebtoken'
+import {BadRequestError} from "@nabz.tickets/common";
+import jwt from 'jsonwebtoken';
 import {PasswordService} from "../../services/password.service";
 
 export async function signUp(req: Request, res: Response) {

@@ -1,7 +1,7 @@
-import {Router} from 'express'
+import {Router} from 'express';
 import {body} from "express-validator";
 import * as AuthController from "../resources/auth/auth.controller";
-import {currentUser, ValidateRequest} from "@nabztickets/common";
+import {currentUser, ValidateRequest} from "@nabz.tickets/common";
 
 const router = Router()
 

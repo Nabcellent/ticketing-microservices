@@ -1,8 +1,8 @@
 import request from "supertest";
-import {app} from "../../app";
+import App from "../../app";
 
 it('should return a 201 on successful sign up', async () => {
-    return request(app)
+    return request(App)
         .post('/api/users/sign-up')
         .send({
             email: 'test@test.com',
@@ -12,7 +12,7 @@ it('should return a 201 on successful sign up', async () => {
 })
 
 it('should return a 400 with an invalid email', function () {
-    return request(app)
+    return request(App)
         .post('/api/users/sign-up')
         .send({
             email: 'test@testcom',
@@ -22,20 +22,20 @@ it('should return a 400 with an invalid email', function () {
 });
 
 it('should return a 400 with an invalid password', function () {
-    return request(app)
+    return request(App)
         .post('/api/users/sign-up')
         .send({})
         .expect(400)
 });
 
 it('should return a 400 with missing email & or password', async () => {
-    await request(app)
+    await request(App)
         .post('/api/users/sign-up')
         .send({
             email: 'test@testcom',
         })
         .expect(400)
-    await request(app)
+    await request(App)
         .post('/api/users/sign-up')
         .send({
             password: 'pas'
@@ -44,14 +44,14 @@ it('should return a 400 with missing email & or password', async () => {
 });
 
 it('Disallows duplicate emails', async () => {
-    await request(app)
+    await request(App)
         .post('/api/users/sign-up')
         .send({
             email: 'test@test.com',
             password: 'password'
         })
         .expect(201)
-    await request(app)
+    await request(App)
         .post('/api/users/sign-up')
         .send({
             email: 'test@test.com',
@@ -61,7 +61,7 @@ it('Disallows duplicate emails', async () => {
 })
 
 it('Sets a cookie after successful sign up', async () => {
-    const response = await request(app)
+    const response = await request(App)
         .post('/api/users/sign-up')
         .send({
             email: 'test@test.com',
