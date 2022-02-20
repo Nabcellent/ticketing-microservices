@@ -1,15 +1,16 @@
 import mongoose from "mongoose";
+import {Status} from '@nabz.tickets/common';
 
 interface OrderAttrs {
     user_id: string;
-    status: string;
+    status: Status;
     expiresAt: Date;
     ticket: TicketDoc;
 }
 
 interface OrderDoc extends mongoose.Document {
     user_id: string;
-    status: string;
+    status: Status;
     expiresAt: Date;
     ticket: TicketDoc;
 }
@@ -25,7 +26,9 @@ const OrderSchema = new mongoose.Schema({
     },
     status: {
         type: String,
-        required: true
+        required: true,
+        enum: Object.values(Status),
+        default: Status.ORDER_CREATED
     },
     expiresAt: {
         type: mongoose.Schema.Types.Date,
