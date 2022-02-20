@@ -1,5 +1,5 @@
 import {Request, Response} from "express";
-import {Ticket} from "../models/tickets";
+import {Ticket} from "../models/ticket";
 import {NotAuthorizedError, NotFoundError} from "@nabz.tickets/common";
 import {TicketCreatedPublisher} from "../events/publishers/ticket-created.publisher";
 import {natsWrapper} from '../nats-wrapper';

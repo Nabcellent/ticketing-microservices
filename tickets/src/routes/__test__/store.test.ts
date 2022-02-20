@@ -1,6 +1,6 @@
 import {app} from "../../app";
 import {Help} from "../../test/helpers";
-import {Ticket} from "../../models/tickets";
+import {Ticket} from "../../models/ticket";
 import supertest from 'supertest';
 import {natsWrapper} from '../../nats-wrapper';
 
