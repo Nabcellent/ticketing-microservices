@@ -2,7 +2,7 @@ import express, {Application, json, urlencoded} from 'express';
 import 'express-async-errors';
 import {currentUser, errorHandler, NotFoundError} from "@nabz.tickets/common";
 import cookieSession from "cookie-session";
-import {orderRouter} from "./routes/orders";
+import {orderRouter} from "./routes/api";
 
 const app: Application = express()
 

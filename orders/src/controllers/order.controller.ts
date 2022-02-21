@@ -44,11 +44,12 @@ export const OrderController = {
     },
 
     show: async (req: Request, res: Response) => {
-        const ticket = await Order.findById(req.params.id);
+        const order = await Order.findById(req.params.id).populate('ticket');
 
-        if (!ticket) throw new NotFoundError();
+        if (!order) throw new NotFoundError();
+        if (order.user_id !== req.currentUser!.id) throw new NotAuthorizedError();
 
-        res.send(ticket);
+        res.send(order);
     },
 
     delete: async (req: Request, res: Response) => {
