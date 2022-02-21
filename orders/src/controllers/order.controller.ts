@@ -61,6 +61,8 @@ export const OrderController = {
         order.status = Status.ORDER_CANCELLED;
         await order.save();
 
-        res.send(order);
+
+
+        res.status(204).send(order);
     }
 };
