@@ -1,22 +1,26 @@
 import {Request, Response} from "express";
 import {Order} from "../models/order";
-import {NotAuthorizedError, NotFoundError} from "@nabz.tickets/common";
+import {BadRequestError, NotAuthorizedError, NotFoundError, Status} from "@nabz.tickets/common";
 import {Ticket} from '../models/ticket';
 
 export const OrderController = {
     index: async (req: Request, res: Response) => {
-        const tickets = await Order.find({})
+        const tickets = await Order.find({});
 
-        res.send(tickets)
+        res.send(tickets);
     },
 
     store: async (req: Request, res: Response) => {
-        const {ticket_id} = req.body
+        const {ticket_id} = req.body;
         //  Attempt to find the ticket being ordered.
-        const ticket = await Ticket.findById(ticket_id)
-        if(!ticket) throw new NotFoundError()
+        const ticket = await Ticket.findById(ticket_id);
+        if (!ticket) throw new NotFoundError();
 
         //  Ensure the ticket isn't already reserved.
+        //  Run query to look at all orders. Find any without status of cancelled
+        const order = await Order.findOne({ticket, status: {$not: Status.ORDER_CANCELLED}});
+
+        if (!order) throw new BadRequestError('Ticket is already reserved!');
 
         //  Calculation an expiration date for ticket.
 
@@ -25,23 +29,23 @@ export const OrderController = {
         //  Publish an order:created event
 
 
-        res.status(201).send(ticket)
+        res.status(201).send(ticket);
     },
 
     show: async (req: Request, res: Response) => {
-        const ticket = await Order.findById(req.params.id)
+        const ticket = await Order.findById(req.params.id);
 
-        if (!ticket) throw new NotFoundError()
+        if (!ticket) throw new NotFoundError();
 
-        res.send(ticket)
+        res.send(ticket);
     },
 
     delete: async (req: Request, res: Response) => {
-        const order = await Order.findById(req.params.id)
+        const order = await Order.findById(req.params.id);
 
-        if (!order) throw new NotFoundError()
-        if (order.user_id !== req.currentUser!.id) throw new NotAuthorizedError()
+        if (!order) throw new NotFoundError();
+        if (order.user_id !== req.currentUser!.id) throw new NotAuthorizedError();
 
-        res.send({})
+        res.send({});
     }
-}
+};
