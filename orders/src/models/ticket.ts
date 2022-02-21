@@ -41,7 +41,7 @@ const TicketSchema = new mongoose.Schema({
 
 TicketSchema.statics.build = (attrs: TicketAttrs) => new Ticket(attrs);
 TicketSchema.methods.isReserved = async function (): Promise<boolean> {
-    const existingOrder = await Order.findOne({ticket: this, status: {$not: Status.ORDER_CANCELLED}});
+    const existingOrder = await Order.findOne({ticket: this, status: {$ne: Status.ORDER_CANCELLED}});
 
     return !!existingOrder;
 };
