@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import {Status} from '@nabz.tickets/common';
+import {TicketDoc} from './ticket';
 
 interface OrderAttrs {
     user_id: string;

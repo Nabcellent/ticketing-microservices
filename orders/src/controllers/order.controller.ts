@@ -1,6 +1,7 @@
 import {Request, Response} from "express";
 import {Order} from "../models/order";
 import {NotAuthorizedError, NotFoundError} from "@nabz.tickets/common";
+import {Ticket} from '../models/ticket';
 
 export const OrderController = {
     index: async (req: Request, res: Response) => {
@@ -10,10 +11,19 @@ export const OrderController = {
     },
 
     store: async (req: Request, res: Response) => {
-        const {title, price} = req.body
+        const {ticket_id} = req.body
+        //  Attempt to find the ticket being ordered.
+        const ticket = await Ticket.findById(ticket_id)
+        if(!ticket) throw new NotFoundError()
 
-        const ticket = Order.build({title, price, user_id: req.currentUser!.id})
-        await ticket.save()
+        //  Ensure the ticket isn't already reserved.
+
+        //  Calculation an expiration date for ticket.
+
+        //  Build and save the order to the DB
+
+        //  Publish an order:created event
+
 
         res.status(201).send(ticket)
     },
