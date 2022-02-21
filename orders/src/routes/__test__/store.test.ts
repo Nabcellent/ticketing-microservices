@@ -5,6 +5,7 @@ import supertest from 'supertest';
 import mongoose from 'mongoose';
 import {Order} from '../../models/order';
 import {Status} from '@nabz.tickets/common';
+import {natsWrapper} from '../../nats-wrapper';
 
 const request = supertest(app);
 
@@ -54,4 +55,18 @@ it('should reserve a ticket.', async function () {
         .expect(201);
 });
 
-it.todo('emits an order created event')
+it('should emit an order created event.', async function () {
+    const ticket = Ticket.build({
+        title: 'Concert',
+        price: 20
+    });
+    await ticket.save();
+
+    await request
+        .post('/api/orders')
+        .set('Cookie', Help.signIn())
+        .send({ticket_id: ticket.id})
+        .expect(201);
+
+    expect(natsWrapper.client.publish).toHaveBeenCalled();
+});
