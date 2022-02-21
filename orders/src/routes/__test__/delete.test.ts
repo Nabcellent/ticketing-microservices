@@ -30,4 +30,6 @@ it('should mark an order as cancelled.', async function () {
     const updatedOrder = await Order.findById(order.id)
 
     expect(updatedOrder!.status).toEqual(Status.ORDER_CANCELLED)
-}); 
+});
+
+it.todo('Emits an order cancelled event.')

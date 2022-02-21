@@ -61,7 +61,7 @@ export const OrderController = {
         order.status = Status.ORDER_CANCELLED;
         await order.save();
 
-
+        //  Publish an order cancelled event
 
         res.status(204).send(order);
     }
