@@ -52,12 +52,15 @@ export const OrderController = {
         res.send(order);
     },
 
-    delete: async (req: Request, res: Response) => {
+    destroy: async (req: Request, res: Response) => {
         const order = await Order.findById(req.params.id);
 
         if (!order) throw new NotFoundError();
         if (order.user_id !== req.currentUser!.id) throw new NotAuthorizedError();
 
-        res.send({});
+        order.status = Status.ORDER_CANCELLED;
+        await order.save();
+
+        res.send(order);
     }
 };

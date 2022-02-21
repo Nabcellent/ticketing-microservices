@@ -8,6 +8,6 @@ const router = Router();
 router.get('/orders', requireAuth, OrderController.index);
 router.get('/orders/:id', OrderController.show);
 router.post('/orders', requireAuth, OrderRequest.store, ValidateRequest, OrderController.store);
-router.delete('/orders/:id', requireAuth, OrderController.delete);
+router.delete('/orders/:id', requireAuth, OrderController.destroy);
 
 export {router as orderRouter};
