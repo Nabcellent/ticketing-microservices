@@ -3,6 +3,8 @@ import {Order} from "../models/order";
 import {BadRequestError, NotAuthorizedError, NotFoundError, Status} from "@nabz.tickets/common";
 import {Ticket} from '../models/ticket';
 
+const EXPIRATION_WINDOW_SECONDS = 15 * 60;
+
 export const OrderController = {
     index: async (req: Request, res: Response) => {
         const tickets = await Order.find({});
@@ -18,18 +20,27 @@ export const OrderController = {
 
         //  Ensure the ticket isn't already reserved.
         //  Run query to look at all orders. Find any without status of cancelled
-        const order = await Order.findOne({ticket, status: {$not: Status.ORDER_CANCELLED}});
+        const isReserved = await ticket.isReserved();
 
-        if (!order) throw new BadRequestError('Ticket is already reserved!');
+        if (isReserved) throw new BadRequestError('Ticket is already reserved!');
 
         //  Calculation an expiration date for ticket.
+        const expires_at = new Date();
+        expires_at.setSeconds(expires_at.getSeconds() + EXPIRATION_WINDOW_SECONDS);
 
         //  Build and save the order to the DB
+        const order = Order.build({
+            user_id: req.currentUser!.id,
+            status: Status.ORDER_CREATED,
+            expires_at,
+            ticket
+        });
+        await order.save()
 
         //  Publish an order:created event
 
 
-        res.status(201).send(ticket);
+        res.status(201).send(order);
     },
 
     show: async (req: Request, res: Response) => {

@@ -5,14 +5,14 @@ import {TicketDoc} from './ticket';
 interface OrderAttrs {
     user_id: string;
     status: Status;
-    expiresAt: Date;
+    expires_at: Date;
     ticket: TicketDoc;
 }
 
 interface OrderDoc extends mongoose.Document {
     user_id: string;
     status: Status;
-    expiresAt: Date;
+    expires_at: Date;
     ticket: TicketDoc;
 }
 
@@ -31,7 +31,7 @@ const OrderSchema = new mongoose.Schema({
         enum: Object.values(Status),
         default: Status.ORDER_CREATED
     },
-    expiresAt: {
+    expires_at: {
         type: mongoose.Schema.Types.Date,
     },
     ticket: {
