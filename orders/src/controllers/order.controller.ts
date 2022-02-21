@@ -2,6 +2,9 @@ import {Request, Response} from "express";
 import {Order} from "../models/order";
 import {BadRequestError, NotAuthorizedError, NotFoundError, Status} from "@nabz.tickets/common";
 import {Ticket} from '../models/ticket';
+import {OrderCreatedPublisher} from '../events/publishers/order-created.publisher';
+import {natsWrapper} from '../nats-wrapper';
+import {OrderCancelledPublisher} from '../events/publishers/order-cancelled.publisher';
 
 const EXPIRATION_WINDOW_SECONDS = 15 * 60;
 
@@ -37,8 +40,17 @@ export const OrderController = {
         });
         await order.save();
 
-        //  Publish an order:created event
-
+        //  Publish an order created event
+        new OrderCreatedPublisher(natsWrapper.client).publish({
+            id: order.id,
+            status: order.status,
+            user_id: order.user_id,
+            expires_at: order.expires_at.toISOString(),
+            ticket: {
+                id: ticket.id,
+                price: ticket.price
+            }
+        });
 
         res.status(201).send(order);
     },
@@ -53,7 +65,7 @@ export const OrderController = {
     },
 
     destroy: async (req: Request, res: Response) => {
-        const order = await Order.findById(req.params.id);
+        const order = await Order.findById(req.params.id).populate('ticket');
 
         if (!order) throw new NotFoundError();
         if (order.user_id !== req.currentUser!.id) throw new NotAuthorizedError();
@@ -62,6 +74,12 @@ export const OrderController = {
         await order.save();
 
         //  Publish an order cancelled event
+        new OrderCancelledPublisher(natsWrapper.client).publish({
+            id: order.id,
+            ticket: {
+                id: order.ticket.id
+            }
+        });
 
         res.status(204).send(order);
     }
