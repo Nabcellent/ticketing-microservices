@@ -6,7 +6,7 @@ import mongoose from 'mongoose';
 
 const router = Router();
 
-router.get('/orders', OrderController.index);
+router.get('/orders', requireAuth, OrderController.index);
 router.get('/orders/:id', OrderController.show);
 
 router.post('/orders', requireAuth, [

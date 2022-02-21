@@ -52,4 +52,6 @@ it('should reserve a ticket.', async function () {
         .set('Cookie', Help.signIn())
         .send({ticket_id: ticket.id})
         .expect(201);
-}); 
+});
+
+it.todo('emits an order created event')

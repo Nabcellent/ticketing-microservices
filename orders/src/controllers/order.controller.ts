@@ -7,9 +7,9 @@ const EXPIRATION_WINDOW_SECONDS = 15 * 60;
 
 export const OrderController = {
     index: async (req: Request, res: Response) => {
-        const tickets = await Order.find({});
+        const orders = await Order.find({user_id: req.currentUser!.id}).populate('ticket');
 
-        res.send(tickets);
+        res.send(orders);
     },
 
     store: async (req: Request, res: Response) => {
@@ -35,7 +35,7 @@ export const OrderController = {
             expires_at,
             ticket
         });
-        await order.save()
+        await order.save();
 
         //  Publish an order:created event
 
