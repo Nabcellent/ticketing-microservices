@@ -1,6 +1,6 @@
 import {Request, Response} from "express";
 import {Ticket} from "../models/ticket";
-import {NotAuthorizedError, NotFoundError} from "@nabz.tickets/common";
+import {BadRequestError, NotAuthorizedError, NotFoundError} from "@nabz.tickets/common";
 import {TicketCreatedPublisher} from "../events/publishers/ticket-created.publisher";
 import {natsWrapper} from '../nats-wrapper';
 import {TicketUpdatedPublisher} from '../events/publishers/ticket-updated.publisher';
@@ -40,6 +40,9 @@ export const TicketController = {
         const ticket = await Ticket.findById(req.params.id);
 
         if (!ticket) throw new NotFoundError();
+
+        if(ticket.order_id) throw new BadRequestError('Ticket is reserved.')
+
         if (ticket.user_id !== req.currentUser!.id) throw new NotAuthorizedError();
 
         ticket.set({
