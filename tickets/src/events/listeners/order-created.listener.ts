@@ -1,6 +1,7 @@
 import {Listener, OrderCreatedEvent, QueueGroupName, Subject} from '@nabz.tickets/common';
 import {Message} from 'node-nats-streaming';
 import {Ticket} from '../../models/ticket';
+import {TicketUpdatedPublisher} from '../publishers/ticket-updated.publisher';
 
 export class OrderCreatedListener extends Listener<OrderCreatedEvent> {
     subject: Subject.OrderCreated = Subject.OrderCreated;
@@ -17,7 +18,14 @@ export class OrderCreatedListener extends Listener<OrderCreatedEvent> {
         ticket.set({order_id: data.id});
         await ticket.save();
 
-
+        await new TicketUpdatedPublisher(this.client).publish({
+            id: ticket.id,
+            user_id: ticket.user_id,
+            order_id: ticket.order_id,
+            title: ticket.title,
+            price: ticket.price,
+            version: ticket.version
+        });
 
         //  ack() the message
         msg.ack();
