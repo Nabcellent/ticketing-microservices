@@ -48,4 +48,5 @@ it('should ack() the message.', async function () {
     await listener.onMessage(data, msg)
 
     //  Write assertions to make sure ack() is called
+    expect(msg.ack).toHaveBeenCalled()
 }); 
