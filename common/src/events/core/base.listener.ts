@@ -7,7 +7,7 @@ interface Event {
 }
 
 export abstract class Listener<T extends Event> {
-    #client: Stan;
+    protected client: Stan;
     protected ackWait: number = 5 * 1000;
     abstract subject: T['subject'];
     abstract queueGroupName: string;
@@ -15,11 +15,11 @@ export abstract class Listener<T extends Event> {
     abstract onMessage(data: T['data'], msg: Message): void;
 
     constructor(client: Stan) {
-        this.#client = client;
+        this.client = client;
     }
 
     subscriptionOptions() {
-        return this.#client.subscriptionOptions()
+        return this.client.subscriptionOptions()
             .setDeliverAllAvailable()
             .setManualAckMode(true)
             .setAckWait(this.ackWait)
@@ -27,7 +27,7 @@ export abstract class Listener<T extends Event> {
     }
 
     listen() {
-        const subscription = this.#client.subscribe(this.subject, this.queueGroupName, this.subscriptionOptions())
+        const subscription = this.client.subscribe(this.subject, this.queueGroupName, this.subscriptionOptions())
 
         subscription.on('message', (msg: Message) => {
             console.log(`Message received:${this.subject} / ${this.queueGroupName}`)
