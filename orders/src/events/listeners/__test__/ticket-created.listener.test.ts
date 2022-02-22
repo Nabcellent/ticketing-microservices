@@ -29,6 +29,7 @@ const setup = async () => {
 
 it('should create and save a ticket.', async function () {
     const {listener, data, msg} = await setup();
+
     //  Call the on message func with the data obj + message obj
     await listener.onMessage(data, msg)
 
@@ -40,8 +41,11 @@ it('should create and save a ticket.', async function () {
     expect(ticket!.price).toEqual(data.price)
 });
 
-it('should ack() the message.', function () {
+it('should ack() the message.', async function () {
+    const {listener, data, msg} = await setup();
+
     //  Call the on message func with the data obj + message obj
+    await listener.onMessage(data, msg)
 
     //  Write assertions to make sure ack() is called
 }); 
