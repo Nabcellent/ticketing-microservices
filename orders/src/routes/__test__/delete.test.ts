@@ -5,11 +5,13 @@ import {Help} from '../../test/helpers';
 import {Order} from '../../models/order';
 import {Status} from '@nabz.tickets/common';
 import {natsWrapper} from '../../nats-wrapper';
+import mongoose from 'mongoose';
 
 const request = supertest(app);
 
 it('should mark an order as cancelled.', async function () {
     const ticket = await Ticket.create({
+        id: new mongoose.Types.ObjectId().toHexString(),
         title: 'Concert',
         price: 20
     });
@@ -35,6 +37,7 @@ it('should mark an order as cancelled.', async function () {
 
 it('should emit an order cancelled event.', async function () {
     const ticket = await Ticket.create({
+        id: new mongoose.Types.ObjectId().toHexString(),
         title: 'Concert',
         price: 20
     });

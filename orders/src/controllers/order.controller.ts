@@ -46,6 +46,7 @@ export const OrderController = {
             status: order.status,
             user_id: order.user_id,
             expires_at: order.expires_at.toISOString(),
+            version: order.version,
             ticket: {
                 id: ticket.id,
                 price: ticket.price
@@ -76,6 +77,7 @@ export const OrderController = {
         //  Publish an order cancelled event
         new OrderCancelledPublisher(natsWrapper.client).publish({
             id: order.id,
+            version: order.version,
             ticket: {
                 id: order.ticket.id
             }

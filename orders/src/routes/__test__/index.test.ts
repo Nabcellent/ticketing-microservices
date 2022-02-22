@@ -2,13 +2,12 @@ import supertest from "supertest";
 import {app} from "../../app";
 import {Help} from "../../test/helpers";
 import {Ticket} from '../../models/ticket';
+import mongoose from 'mongoose';
 
 const request = supertest(app);
 
 const createTicket = async () => {
-    const ticket = Ticket.build({title: 'Concert', price: 20});
-
-    return await ticket.save();
+    return await Ticket.create({id: new mongoose.Types.ObjectId().toHexString(), title: 'Concert', price: 20});
 };
 
 it('should fetch a list of orders for a particular user.', async function () {
@@ -42,8 +41,8 @@ it('should fetch a list of orders for a particular user.', async function () {
         .expect(200);
 
     expect(response.body.length).toEqual(2);
-    expect(response.body[0].id).toEqual(orderOne.id)
-    expect(response.body[1].id).toEqual(orderTwo.id)
-    expect(response.body[0].ticket.id).toEqual(ticketTwo.id)
-    expect(response.body[1].ticket.id).toEqual(ticketThree.id)
+    expect(response.body[0].id).toEqual(orderOne.id);
+    expect(response.body[1].id).toEqual(orderTwo.id);
+    expect(response.body[0].ticket.id).toEqual(ticketTwo.id);
+    expect(response.body[1].ticket.id).toEqual(ticketThree.id);
 });

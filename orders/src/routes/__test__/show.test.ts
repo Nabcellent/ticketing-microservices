@@ -2,15 +2,16 @@ import {app} from "../../app";
 import supertest from 'supertest';
 import {Ticket} from '../../models/ticket';
 import {Help} from '../../test/helpers';
+import mongoose from 'mongoose';
 
 const request = supertest(app);
 
 it('should fetch the order.', async function () {
-    const ticket = Ticket.build({
+    const ticket = await Ticket.create({
+        id: new mongoose.Types.ObjectId().toHexString(),
         title: 'Concert',
         price: 20
     });
-    await ticket.save();
 
     const user = Help.signIn();
 
@@ -30,11 +31,11 @@ it('should fetch the order.', async function () {
 });
 
 it('should return an error if order does not belong to user.', async function () {
-    const ticket = Ticket.build({
+    const ticket = await Ticket.create({
+        id: new mongoose.Types.ObjectId().toHexString(),
         title: 'Concert',
         price: 20
     });
-    await ticket.save();
 
     const user = Help.signIn();
 
