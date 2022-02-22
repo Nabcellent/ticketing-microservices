@@ -1,6 +1,5 @@
-import {Listener, Subject, TicketUpdatedEvent} from '@nabz.tickets/common';
+import {Listener, QueueGroupName, Subject, TicketUpdatedEvent} from '@nabz.tickets/common';
 import {Message} from 'node-nats-streaming';
-import {QueueGroupName} from '../../../../common/src/enums/queue-group-name';
 import {Ticket} from '../../models/ticket';
 
 export class TicketUpdatedListener extends Listener<TicketUpdatedEvent> {
