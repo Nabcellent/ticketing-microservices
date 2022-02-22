@@ -7,53 +7,55 @@ import {TicketUpdatedPublisher} from '../events/publishers/ticket-updated.publis
 
 export const TicketController = {
     index: async (req: Request, res: Response) => {
-        const tickets = await Ticket.find({})
+        const tickets = await Ticket.find({});
 
-        res.send(tickets)
+        res.send(tickets);
     },
 
     store: async (req: Request, res: Response) => {
-        const {title, price} = req.body
+        const {title, price} = req.body;
 
-        const ticket = Ticket.build({title, price, user_id: req.currentUser!.id})
-        await ticket.save()
+        const ticket = Ticket.build({title, price, user_id: req.currentUser!.id});
+        await ticket.save();
         await new TicketCreatedPublisher(natsWrapper.client).publish({
             id: ticket.id,
             title: ticket.title,
             price: ticket.price,
-            user_id: ticket.user_id
-        })
+            user_id: ticket.user_id,
+            version: ticket.version
+        });
 
-        res.status(201).send(ticket)
+        res.status(201).send(ticket);
     },
 
     show: async (req: Request, res: Response) => {
-        const ticket = await Ticket.findById(req.params.id)
+        const ticket = await Ticket.findById(req.params.id);
 
-        if (!ticket) throw new NotFoundError()
+        if (!ticket) throw new NotFoundError();
 
-        res.send(ticket)
+        res.send(ticket);
     },
 
     update: async (req: Request, res: Response) => {
-        const ticket = await Ticket.findById(req.params.id)
+        const ticket = await Ticket.findById(req.params.id);
 
-        if (!ticket) throw new NotFoundError()
-        if (ticket.user_id !== req.currentUser!.id) throw new NotAuthorizedError()
+        if (!ticket) throw new NotFoundError();
+        if (ticket.user_id !== req.currentUser!.id) throw new NotAuthorizedError();
 
         ticket.set({
             title: req.body.title,
             price: req.body.price
-        })
-        await ticket.save()
+        });
+        await ticket.save();
 
         new TicketUpdatedPublisher(natsWrapper.client).publish({
             id: ticket.id,
             title: ticket.title,
             price: ticket.price,
-            user_id: ticket.user_id
-        })
+            user_id: ticket.user_id,
+            version: ticket.version
+        });
 
-        res.send(ticket)
+        res.send(ticket);
     }
-}
+};

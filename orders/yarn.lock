@@ -1813,6 +1813,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"core-js@npm:^3.2.1":
+  version: 3.21.1
+  resolution: "core-js@npm:3.21.1"
+  checksum: d68eddd831340ad5b24ac29c72fda022a43b17f194c4278b6b875a843283d316502cb4abd07f28631d6ebc4387f66aa06e2b1b3c8fd7e08096a751b5c63f6889
+  languageName: node
+  linkType: hard
+
 "create-require@npm:^1.1.0":
   version: 1.1.1
   resolution: "create-require@npm:1.1.1"
@@ -3697,6 +3704,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"kareem@npm:^2.3.0":
+  version: 2.3.4
+  resolution: "kareem@npm:2.3.4"
+  checksum: e12d05e120515c0ded270eb47792e7b1eb3d2656f74a57050e59c8d0a21212c02c7dc5e0acfaa75f89637c5b13d3dfef53218be33c4d3c7d531ef44a68df7478
+  languageName: node
+  linkType: hard
+
 "keygrip@npm:~1.1.0":
   version: 1.1.0
   resolution: "keygrip@npm:1.1.0"
@@ -4148,6 +4162,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"mongoose-update-if-current@npm:^1.4.0":
+  version: 1.4.0
+  resolution: "mongoose-update-if-current@npm:1.4.0"
+  dependencies:
+    core-js: ^3.2.1
+    kareem: ^2.3.0
+    regenerator-runtime: ^0.13.5
+  peerDependencies:
+    mongoose: ">=5.0.0"
+  checksum: 20fb25d4b3d6051146fb1830b6490d095601d84a68aa9696a931e79644937744d3bd374dccdb4a36424f8722d716f495cf2e073dca5188bb286c0607ef156d8e
+  languageName: node
+  linkType: hard
+
 "mongoose@npm:^6.1.4":
   version: 6.1.4
   resolution: "mongoose@npm:6.1.4"
@@ -4457,6 +4484,7 @@ __metadata:
     jsonwebtoken: ^8.5.1
     mongodb-memory-server: ^8.1.0
     mongoose: ^6.1.4
+    mongoose-update-if-current: ^1.4.0
     node-nats-streaming: ^0.3.2
     nodemon: ^2.0.15
     supertest: ^6.1.6
@@ -4781,6 +4809,13 @@ __metadata:
   dependencies:
     picomatch: ^2.2.1
   checksum: 1ced032e6e45670b6d7352d71d21ce7edf7b9b928494dcaba6f11fba63180d9da6cd7061ebc34175ffda6ff529f481818c962952004d273178acd70f7059b320
+  languageName: node
+  linkType: hard
+
+"regenerator-runtime@npm:^0.13.5":
+  version: 0.13.9
+  resolution: "regenerator-runtime@npm:0.13.9"
+  checksum: 65ed455fe5afd799e2897baf691ca21c2772e1a969d19bb0c4695757c2d96249eb74ee3553ea34a91062b2a676beedf630b4c1551cc6299afb937be1426ec55e
   languageName: node
   linkType: hard
 
