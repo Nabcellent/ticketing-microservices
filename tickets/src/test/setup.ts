@@ -38,4 +38,4 @@ afterAll(async () => {
     await mongoose.connection.close()
 })
 
-jest.setTimeout(30000)
+jest.setTimeout(50000)
