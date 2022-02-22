@@ -13,6 +13,7 @@ export * from './middlewares/validate-request.middleware';
 
 export * from './enums/status';
 export * from './enums/subject';
+export * from './enums/queue-group-name';
 
 export * from './events/core/base.listener';
 export * from './events/core/base.publisher';
