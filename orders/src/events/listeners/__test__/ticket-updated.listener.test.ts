@@ -36,6 +36,14 @@ const setup = async () => {
 
 it('should find, update and save a ticket.', async function () {
     const {listener, ticket, data, msg} = await setup();
+
+    await listener.onMessage(data, msg);
+
+    const updatedTicket = await Ticket.findById(ticket.id);
+
+    expect(updatedTicket!.title).toEqual(data.title);
+    expect(updatedTicket!.price).toEqual(data.price);
+    expect(updatedTicket!.version).toEqual(data.version);
 });
 
 it('should ack() the message.', async function () {
@@ -46,4 +54,16 @@ it('should ack() the message.', async function () {
 
     //  Write assertions to make sure ack() is called
     expect(msg.ack).toHaveBeenCalled();
+});
+
+it('should not call ack() if version number is skipped.', async function () {
+    const {msg, data, listener} = await setup();
+
+    data.version = 10;
+
+    try {
+        await listener.onMessage(data, msg);
+    } catch (err) {}
+
+    expect(msg.ack).not.toHaveBeenCalled()
 }); 
