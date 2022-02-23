@@ -4,6 +4,7 @@ import {Help} from '../../test/helpers';
 import mongoose from 'mongoose';
 import {Order} from '../../models/order';
 import {Status} from '@nabz.tickets/common';
+import {stripe} from '../../stripe';
 
 const request = supertest(app);
 
@@ -78,5 +79,12 @@ it('should return a 204 with valid inputs.', async function () {
         .send({
             order_id: order.id,
             token: 'tok_visa'
-        });
-}); 
+        })
+        .expect(201);
+
+    const chargeOptions = (stripe.charges.create as jest.Mock).mock.calls[0][0];
+
+    expect(chargeOptions.source).toEqual('tok_visa');
+    expect(chargeOptions.amount).toEqual(order.price * 100);
+    expect(chargeOptions.currency).toEqual('kes');
+});
