@@ -6,6 +6,8 @@ import {Order} from '../../models/order';
 import {Status} from '@nabz.tickets/common';
 import {stripe} from '../../stripe';
 
+// jest.mock('../stripe')
+
 const request = supertest(app);
 
 it('should return a 404 if order does not exist.', async function () {
@@ -61,7 +63,7 @@ it('should return a 400 when purchasing a cancelled order.', async function () {
         .expect(400);
 });
 
-it('should return a 204 with valid inputs.', async function () {
+it('should return a 201 with valid inputs.', async function () {
     const user_id = new mongoose.Types.ObjectId().toHexString();
 
     const order = Order.build({
@@ -82,9 +84,37 @@ it('should return a 204 with valid inputs.', async function () {
         })
         .expect(201);
 
-    const chargeOptions = (stripe.charges.create as jest.Mock).mock.calls[0][0];
+    // const chargeOptions = (stripe.charges.create as jest.Mock).mock.calls[0][0];
 
-    expect(chargeOptions.source).toEqual('tok_visa');
-    expect(chargeOptions.amount).toEqual(order.price * 100);
-    expect(chargeOptions.currency).toEqual('kes');
+    // expect(chargeOptions.source).toEqual('tok_visa');
+    // expect(chargeOptions.amount).toEqual(order.price * 100);
+    // expect(chargeOptions.currency).toEqual('kes');
+});
+
+it('should return a 201 with valid inputs. (realistic test)', async function () {
+    const user_id = new mongoose.Types.ObjectId().toHexString();
+    const price = Math.floor(Math.random() * 100000);
+    const order = Order.build({
+        id: new mongoose.Types.ObjectId().toHexString(),
+        user_id,
+        price,
+        status: Status.ORDER_CREATED,
+        version: 0,
+    });
+    await order.save();
+
+    await request
+        .post('/api/payments')
+        .set('Cookie', Help.signIn(user_id))
+        .send({
+            order_id: order.id,
+            token: 'tok_visa'
+        })
+        .expect(201);
+
+    const stripeCharges = await stripe.charges.list({limit: 50});
+    const stripeCharge = stripeCharges.data.find((charge: any) => charge.amount === price * 100);
+
+    expect(stripeCharge).toBeDefined();
+    expect(stripeCharge!.currency).toEqual('kes');
 });
