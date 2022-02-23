@@ -3,6 +3,8 @@ import {Order} from '../models/order';
 import {BadRequestError, NotAuthorizedError, NotFoundError, Status} from '@nabz.tickets/common';
 import {stripe} from '../stripe';
 import {Payment} from '../models/payment';
+import {PaymentCreatedPublisher} from '../events/publishers/payment-created-publisher';
+import {natsWrapper} from '../nats-wrapper';
 
 export const PaymentController = {
     store: async (req: Request, res: Response) => {
@@ -20,11 +22,17 @@ export const PaymentController = {
             source: token
         });
 
-        await Payment.create({
+        const payment = await Payment.create({
             order_id,
             stripe_id: charge.id
         });
 
-        res.status(201).send({success: true});
+        new PaymentCreatedPublisher(natsWrapper.client).publish({
+            id: payment.id,
+            order_id: payment.order_id,
+            stripe_id: payment.stripe_id
+        });
+
+        res.status(201).send({id: payment.id});
     },
 };
