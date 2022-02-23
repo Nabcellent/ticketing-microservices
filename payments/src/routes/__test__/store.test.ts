@@ -59,3 +59,24 @@ it('should return a 400 when purchasing a cancelled order.', async function () {
         })
         .expect(400);
 });
+
+it('should return a 204 with valid inputs.', async function () {
+    const user_id = new mongoose.Types.ObjectId().toHexString();
+
+    const order = Order.build({
+        id: new mongoose.Types.ObjectId().toHexString(),
+        user_id,
+        price: 20,
+        status: Status.ORDER_CREATED,
+        version: 0,
+    });
+    await order.save();
+
+    await request
+        .post('/api/payments')
+        .set('Cookie', Help.signIn(user_id))
+        .send({
+            order_id: order.id,
+            token: 'tok_visa'
+        });
+}); 
