@@ -6,7 +6,7 @@ import {OrderCreatedPublisher} from '../events/publishers/order-created.publishe
 import {natsWrapper} from '../nats-wrapper';
 import {OrderCancelledPublisher} from '../events/publishers/order-cancelled.publisher';
 
-const EXPIRATION_WINDOW_SECONDS = 15 * 60;
+const EXPIRATION_WINDOW_SECONDS = 1 * 60;
 
 export const OrderController = {
     index: async (req: Request, res: Response) => {
