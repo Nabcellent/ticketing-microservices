@@ -1,13 +1,14 @@
 import {Listener, OrderCreatedEvent, QueueGroupName, Subject} from '@nabz.tickets/common';
 import {Message} from 'node-nats-streaming';
+import {expirationQueue} from '../../queues/expiration.queue';
 
 export class OrderCreatedListener extends Listener<OrderCreatedEvent> {
     subject: Subject.OrderCreated = Subject.OrderCreated;
     queueGroupName = QueueGroupName.ExpirationService;
 
     async onMessage(data: OrderCreatedEvent["data"], msg: Message) {
+        await expirationQueue.add({order_id: data.id});
 
-        //  ack() the message
         msg.ack();
     }
 }
