@@ -2,7 +2,7 @@ import express, {Application, json, urlencoded} from 'express';
 import 'express-async-errors';
 import {currentUser, errorHandler, NotFoundError} from "@nabz.tickets/common";
 import cookieSession from "cookie-session";
-import {ticketRouter} from "./routes/tickets";
+import {paymentRouter} from "./routes/payments";
 
 const app: Application = express();
 
@@ -15,7 +15,7 @@ app.use(cookieSession({
     secure: process.env.NODE_ENV !== 'test'
 }));
 app.use(currentUser);
-app.use('/api', ticketRouter);
+app.use('/api', paymentRouter);
 
 app.all('*', async () => {
     throw new NotFoundError();

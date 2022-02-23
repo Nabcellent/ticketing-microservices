@@ -53,6 +53,15 @@ build:
         manual:
           - src: 'src/**/*.ts'
             dest: .
+#    - image: us.gcr.io/ticketing-dev-335910/payments
+    - image: nabcellent/payments
+      context: payments
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: 'src/**/*.ts'
+            dest: .
 deploy:
   kubectl:
     manifests:
