@@ -1,4 +1,4 @@
-import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap/dist/css/bootstrap.css';
 import {buildClient} from "../api/build-client";
 import {Component} from "react";
 import {Header} from "../components/header";
@@ -7,7 +7,7 @@ const AppComponent = ({ Component, pageProps, currentUser }) => {
 	return (
 		<div>
 			<Header currentUser={ currentUser }/>
-			<Component { ...pageProps }/>
+			<Component { ...pageProps } currentUser={currentUser}/>
 		</div>
 	)
 }
@@ -18,7 +18,7 @@ AppComponent.getInitialProps = async({ Component, ctx }) => {
 
 	let pageProps = {};
 	if(Component.getInitialProps) {
-		pageProps = await Component.getInitialProps(ctx)
+		pageProps = await Component.getInitialProps(ctx, client, data.currentUser)
 	}
 
 	return { pageProps, ...data }
