@@ -6,8 +6,8 @@ import {PaymentController} from '../controllers/payment.controller';
 const router = Router()
 
 router.post('/payments', requireAuth, [
-    body('title').not().isEmpty().withMessage('Title is required.'),
-    body('price').isFloat({gt: 0}).withMessage('Price is required & must be greater than 0.')
+    body('token').not().isEmpty().withMessage('Token is required.'),
+    body('order_id').not().isEmpty().withMessage('Order id is required.')
 ], ValidateRequest, PaymentController.store)
 
 export {router as paymentRouter}
