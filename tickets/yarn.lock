@@ -619,9 +619,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@nabz.tickets/common@npm:^1.0.10":
-  version: 1.0.10
-  resolution: "@nabz.tickets/common@npm:1.0.10"
+"@nabz.tickets/common@npm:^1.0.12":
+  version: 1.0.12
+  resolution: "@nabz.tickets/common@npm:1.0.12"
   dependencies:
     "@types/cookie-session": ^2.0.44
     "@types/express": ^4.17.13
@@ -629,7 +629,7 @@ __metadata:
     express-validator: ^6.14.0
     jsonwebtoken: ^8.5.1
     node-nats-streaming: ^0.3.2
-  checksum: b90a17bcaee17d9eb495144f41a5085ebc2b5f7fc7a00b714f9ef300131abdbec7763c0e607817da4b9443b9c2390c6087b378b5baa5fcdeec83d9a7519083c0
+  checksum: b1a7cfc4670dd6bd12fab9040358586c300c9e66e4ff59e71f467437980c89c46907aeb7bcb51af267ee4e129ced65fb7bf5fdb5a20504cb8d587a86c5269ac9
   languageName: node
   linkType: hard
 
@@ -2038,13 +2038,6 @@ __metadata:
   dependencies:
     is-obj: ^2.0.0
   checksum: d5775790093c234ef4bfd5fbe40884ff7e6c87573e5339432870616331189f7f5d86575c5b5af2dcf0f61172990f4f734d07844b1f23482fff09e3c4bead05ea
-  languageName: node
-  linkType: hard
-
-"dotenv@npm:^16.0.0":
-  version: 16.0.0
-  resolution: "dotenv@npm:16.0.0"
-  checksum: 664cebb51f0a9a1d1b930f51f0271e72e26d62feaecc9dc03df39453dd494b4e724809ca480fb3ec3213382b1ed3f791aaeb83569a137f9329ce58efd4853dbf
   languageName: node
   linkType: hard
 
@@ -5394,7 +5387,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "tickets@workspace:."
   dependencies:
-    "@nabz.tickets/common": ^1.0.10
+    "@nabz.tickets/common": ^1.0.12
     "@types/cookie-session": ^2
     "@types/express": ^4
     "@types/jest": ^27.4.0
@@ -5402,7 +5395,6 @@ __metadata:
     "@types/node": ^17.0.6
     "@types/supertest": ^2.0.11
     cookie-session: ^2.0.0
-    dotenv: ^16.0.0
     envalid: ^7.2.2
     express: ^4.17.2
     express-async-errors: ^3.1.1
