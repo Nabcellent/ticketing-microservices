@@ -15,7 +15,6 @@ export class OrderCancelledListener extends Listener<OrderCancelledEvent> {
         order.set({status: Status.ORDER_CANCELLED});
         await order.save();
 
-        //  ack() the message
         msg.ack();
     }
 }
