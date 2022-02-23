@@ -38,6 +38,24 @@ it('should return a 401 if order does not belong to current user.', async functi
         .expect(401);
 });
 
-it('should return a 400 when purchasing a cancelled order.', function () {
+it('should return a 400 when purchasing a cancelled order.', async function () {
+    const user_id = new mongoose.Types.ObjectId().toHexString();
 
+    const order = Order.build({
+        id: new mongoose.Types.ObjectId().toHexString(),
+        user_id,
+        price: 20,
+        status: Status.ORDER_CANCELLED,
+        version: 0,
+    });
+    await order.save();
+
+    await request
+        .post('/api/payments')
+        .set('Cookie', Help.signIn(user_id))
+        .send({
+            token: 'd12123saa',
+            order_id: order.id
+        })
+        .expect(400);
 });
