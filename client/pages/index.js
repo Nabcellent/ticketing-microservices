@@ -1,10 +1,15 @@
+import Link from 'next/link';
+
 const Home = ({currentUser, tickets}) => {
     const ticketList = tickets.map((ticket, i) => <tr key={ticket.id}>
         <td>{i + 1}</td>
         <td>{ticket.title}</td>
         <td>{ticket.price}</td>
         <td>
-            <button className={'btn btn-sm btn-primary'}>Purchase</button>
+            <button className={'btn btn-sm btn-primary me-2'}>Purchase</button>
+            <Link href={'/tickets/[ticket_id]'} as={`/tickets/${ticket.id}`}>
+                <a className={'btn btn-sm btn-warning'}>View</a>
+            </Link>
         </td>
     </tr>);
 
