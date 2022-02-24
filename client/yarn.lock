@@ -123,6 +123,7 @@ __metadata:
     next: ^12.1.0
     react: ^17.0.2
     react-dom: ^17.0.2
+    react-stripe-checkout: ^2.6.3
   languageName: unknown
   linkType: soft
 
@@ -260,6 +261,13 @@ __metadata:
   peerDependencies:
     react: 17.0.2
   checksum: 1c1eaa3bca7c7228d24b70932e3d7c99e70d1d04e13bb0843bbf321582bc25d7961d6b8a6978a58a598af2af496d1cedcfb1bf65f6b0960a0a8161cb8dab743c
+  languageName: node
+  linkType: hard
+
+"react-stripe-checkout@npm:^2.6.3":
+  version: 2.6.3
+  resolution: "react-stripe-checkout@npm:2.6.3"
+  checksum: 0640fd0d4ebc72a3b83c71019224feaa0e1befdf2c236ee7422e0121f4295be162a0d3ddb8c7509aa7abc5646e00f2b6ca7b1189c71d5cdc7809f789dc31dbb6
   languageName: node
   linkType: hard
 
