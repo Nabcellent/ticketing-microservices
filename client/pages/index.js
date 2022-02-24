@@ -16,6 +16,9 @@ const Home = ({currentUser, tickets}) => {
     return (
         <div>
             <h1>Tickets</h1>
+            <div className={'text-end'}>
+                <Link href={'/tickets/create'}><a className={'btn btn-sm btn-warning'}>Create New Ticket</a></Link>
+            </div>
             <table className="table table-striped">
                 <thead>
                 <tr>

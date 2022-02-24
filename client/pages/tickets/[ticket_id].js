@@ -1,7 +1,30 @@
-const TicketShow = () => {
-    return (
-        <div>Ticket Show</div>
-    )
-}
+import {useRequest} from '../../hooks/use-request';
 
-export default TicketShow
+const TicketShow = ({ticket}) => {
+    const {sendRequest, errors} = useRequest({
+        url: '/api/orders',
+        method: 'post',
+        body: {ticket_id: ticket.id},
+        onSuccess: (order) => console.log(order)
+    });
+
+    return (
+        <div>
+            {errors}
+
+            <h1>{ticket.title}</h1>
+            <h4>Price: Kes.{ticket.price}/-</h4>
+
+            <button onClick={sendRequest} className={'btn btn-primary'}>Purchase</button>
+        </div>
+    );
+};
+
+TicketShow.getInitialProps = async (context, client) => {
+    const {ticket_id} = context.query;
+    const {data} = await client.get(`/api/tickets/${ticket_id}`);
+
+    return {ticket: data};
+};
+
+export default TicketShow;
