@@ -8,7 +8,7 @@ export class OrderCreatedListener extends Listener<OrderCreatedEvent> {
 
     async onMessage(data: OrderCreatedEvent["data"], msg: Message) {
         const delay = new Date(data.expires_at).getTime() - new Date().getTime()
-        console.log(`Waiting ${delay}ms to process the job`, );
+        console.log(`Waiting ${delay}ms to process the job`);
 
         await expirationQueue.add({order_id: data.id}, {delay});
 

@@ -16,7 +16,7 @@ const TicketShow = ({ticket}) => {
             <h1>{ticket.title}</h1>
             <h4>Price: Kes.{ticket.price}/-</h4>
 
-            <button onClick={sendRequest} className={'btn btn-primary'}>Purchase</button>
+            <button onClick={() => sendRequest()} className={'btn btn-primary'}>Purchase</button>
         </div>
     );
 };
