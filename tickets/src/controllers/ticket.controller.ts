@@ -7,7 +7,7 @@ import {TicketUpdatedPublisher} from '../events/publishers/ticket-updated.publis
 
 export const TicketController = {
     index: async (req: Request, res: Response) => {
-        const tickets = await Ticket.find({});
+        const tickets = await Ticket.find({order_id: undefined});
 
         res.send(tickets);
     },
@@ -41,7 +41,7 @@ export const TicketController = {
 
         if (!ticket) throw new NotFoundError();
 
-        if(ticket.order_id) throw new BadRequestError('Ticket is reserved.')
+        if (ticket.order_id) throw new BadRequestError('Ticket is reserved.');
 
         if (ticket.user_id !== req.currentUser!.id) throw new NotAuthorizedError();
 
