@@ -1,11 +1,12 @@
 import {useRequest} from '../../hooks/use-request';
+import Router from 'next/router';
 
 const TicketShow = ({ticket}) => {
     const {sendRequest, errors} = useRequest({
         url: '/api/orders',
         method: 'post',
         body: {ticket_id: ticket.id},
-        onSuccess: (order) => console.log(order)
+        onSuccess: (order) => Router.push('/orders/[order_id]', `/orders/${order.id}`)
     });
 
     return (
