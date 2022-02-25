@@ -1,4 +1,5 @@
-import mongoose from 'mongoose'
+console.log('Starting up');
+import mongoose from 'mongoose';
 import App from "./app";
 
 const start = async () => {

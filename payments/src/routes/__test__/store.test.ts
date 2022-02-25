@@ -64,33 +64,33 @@ it('should return a 400 when purchasing a cancelled order.', async function () {
         .expect(400);
 });
 
-it('should return a 201 with valid inputs.', async function () {
-    const user_id = new mongoose.Types.ObjectId().toHexString();
-
-    const order = Order.build({
-        id: new mongoose.Types.ObjectId().toHexString(),
-        user_id,
-        price: 20,
-        status: Status.ORDER_CREATED,
-        version: 0,
-    });
-    await order.save();
-
-    await request
-        .post('/api/payments')
-        .set('Cookie', Help.signIn(user_id))
-        .send({
-            order_id: order.id,
-            token: 'tok_visa'
-        })
-        .expect(201);
-
-    // const chargeOptions = (stripe.charges.create as jest.Mock).mock.calls[0][0];
-
-    // expect(chargeOptions.source).toEqual('tok_visa');
-    // expect(chargeOptions.amount).toEqual(order.price * 100);
-    // expect(chargeOptions.currency).toEqual('kes');
-});
+// it('should return a 201 with valid inputs.', async function () {
+//     const user_id = new mongoose.Types.ObjectId().toHexString();
+//
+//     const order = Order.build({
+//         id: new mongoose.Types.ObjectId().toHexString(),
+//         user_id,
+//         price: 20,
+//         status: Status.ORDER_CREATED,
+//         version: 0,
+//     });
+//     await order.save();
+//
+//     await request
+//         .post('/api/payments')
+//         .set('Cookie', Help.signIn(user_id))
+//         .send({
+//             order_id: order.id,
+//             token: 'tok_visa'
+//         })
+//         .expect(201);
+//
+//     // const chargeOptions = (stripe.charges.create as jest.Mock).mock.calls[0][0];
+//
+//     // expect(chargeOptions.source).toEqual('tok_visa');
+//     // expect(chargeOptions.amount).toEqual(order.price * 100);
+//     // expect(chargeOptions.currency).toEqual('kes');
+// });
 
 it('should return a 201 with valid inputs. (realistic test)', async function () {
     const user_id = new mongoose.Types.ObjectId().toHexString();
